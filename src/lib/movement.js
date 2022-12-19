@@ -24,3 +24,4 @@ export function moveTo(snake, stage) {
             throw new Error('Invalid direction');
     }
 }
+

@@ -1,4 +1,4 @@
-import { STAGE_SIZE, STATE_LENGTH } from "../constants";
+import { STAGE_SIZE, STAGE_LENGTH } from "../constants";
 
 class Stage {
 	width = 0;
@@ -9,8 +9,8 @@ class Stage {
 	}
 
 	initialize() {
-		this.width = STAGE_SIZE.W * STATE_LENGTH.X;
-		this.height = STAGE_SIZE.H * STATE_LENGTH.Y;
+		this.width = STAGE_SIZE.W * STAGE_LENGTH.X;
+		this.height = STAGE_SIZE.H * STAGE_LENGTH.Y;
 
 		console.log("stage is initialized");
 	}
