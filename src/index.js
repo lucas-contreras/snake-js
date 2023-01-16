@@ -1,9 +1,9 @@
-import { SNAKE_DIRECTION, SNAKE_SIZE } from "./constants";
-// import { animate } from './lib/animate';
+import { FOOD_SIZE, SNAKE_DIRECTION, SNAKE_SIZE } from "./constants";
 import { SnakeInstance } from "./models/Snake";
 import { StageInstance } from "./models/Stage";
-import { moveTo } from "./lib/movement";
 import { Animate2 } from './models/Animate2';
+import { FoodInstance } from "./models/Food";
+import { checkCollision } from './lib/collision';
 
 let canvas;
 let context2d;
@@ -13,15 +13,24 @@ const {
     width: wEdge,
 } = StageInstance.getEdge();
 
-const Animate2Instance = new Animate2(60, function() {
+const Animate2Instance = new Animate2(30, function() {
     SnakeInstance.updatePosition();
+
     const [sX, sY] = SnakeInstance.getPosition();
+    const [fX, fY] = FoodInstance.getPosition();
 
     context2d.clearRect(0, 0, hEdge, wEdge);
 
     context2d.fillStyle = 'green';
-    context2d.fillRect(sX, sY, SNAKE_SIZE.W, SNAKE_SIZE.H);
+    context2d.fillRect(sX, sY, SNAKE_SIZE, SNAKE_SIZE);
 
+    context2d.fillStyle = 'red';
+    context2d.fillRect(fX, fY, FOOD_SIZE, FOOD_SIZE);
+
+    if (checkCollision(SnakeInstance.getCoordinates(), FoodInstance.getCoordinates())) {
+        SnakeInstance.increase();
+        FoodInstance.initialize();
+    }
 });
 
 
@@ -48,13 +57,7 @@ const onWindowLoaded = (event) => {
     canvas = document.getElementById('canvas');
     context2d = canvas.getContext('2d');
 
-    // canvas.style.height = '600px';
-    // canvas.style.width = '600px';
     canvas.style.border = '1px solid';
-
-    // context2d.fillStyle = 'green';
-    // context2d.fillRect(10, 10, STAGE_SIZE.W, STAGE_SIZE.H);
-
 
     Animate2Instance.animate();
 };

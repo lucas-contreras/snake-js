@@ -1,4 +1,4 @@
-import { SNAKE_DIRECTION, STAGE_SIZE } from '../constants';
+import { SNAKE_DIRECTION, SNAKE_SIZE, STAGE_SIZE } from '../constants';
 
 class Snake {
     speed = .05;
@@ -9,11 +9,19 @@ class Snake {
         return this.position;
     }
 
-    getDirection() {
-        return this.direction;
+    getCoordinates() {
+        const [x1, y1] = this.position;
+
+        return {
+            x1,
+            y1,
+            x2: x1 + SNAKE_SIZE,
+            y2: y1 + SNAKE_SIZE,
+        }
     }
 
     setPosition(position) {
+        // TODO: these values should be handle in a constant
         const [xPos, yPos] = position;
         let newXPos = xPos;
         let newYPos = yPos;
@@ -38,25 +46,29 @@ class Snake {
     }
 
     setDirection(direction) {
-        if (direction === this.direction) {
-            return;
-        }
-
-        if (
-            (this.direction === SNAKE_DIRECTION.TOP && direction === SNAKE_DIRECTION.DOWN)
-            || (this.direction === SNAKE_DIRECTION.DOWN && direction === SNAKE_DIRECTION.TOP)
-        ) {
-            return;
-        }
-
-        if (
-            (this.direction === SNAKE_DIRECTION.LEFT && direction === SNAKE_DIRECTION.RIGHT)
-            || (this.direction === SNAKE_DIRECTION.RIGHT && direction === SNAKE_DIRECTION.LEFT)
-        ) {
+        if (!this.checkIfValidDirection(direction)) {
             return;
         }
 
         this.direction = direction;
+    }
+
+    checkIfValidDirection(direction) {
+        const isSameDirection = direction === this.direction;
+
+        const isOppositeDirectionTopDown = 
+            (this.direction === SNAKE_DIRECTION.TOP && direction === SNAKE_DIRECTION.DOWN)
+            || (this.direction === SNAKE_DIRECTION.DOWN && direction === SNAKE_DIRECTION.TOP);
+
+
+        const isOppositeDirectionLeftRight = (this.direction === SNAKE_DIRECTION.LEFT && direction === SNAKE_DIRECTION.RIGHT)
+            || (this.direction === SNAKE_DIRECTION.RIGHT && direction === SNAKE_DIRECTION.LEFT);
+
+        if (isSameDirection || isOppositeDirectionTopDown || isOppositeDirectionLeftRight) {
+            return false;
+        }
+
+        return true;
     }
 
     updatePosition() {
@@ -79,9 +91,14 @@ class Snake {
                 this.setPosition([x - STAGE_SIZE.W * this.speed, y]);
                 break;
             }
+            default: {
+                throw new Error('direction not implemented');
+            }
         }
+    }
 
-        console.log(Object.keys(SNAKE_DIRECTION)[this.direction], this.position);
+    increase() {
+        console.log('lala');
     }
 }
 

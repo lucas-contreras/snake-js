@@ -31,7 +31,6 @@ export class Animate2 {
             this.next = now - (elapsed % this.fpsInterval);
             this.callback();
         }
-
     }
 
     stop() {

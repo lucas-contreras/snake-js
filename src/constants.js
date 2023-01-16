@@ -5,10 +5,7 @@ export const SNAKE_DIRECTION = {
 	LEFT: 3,
 };
 
-export const SNAKE_SIZE = {
-	H: 20,
-	W: 20,
-};
+export const SNAKE_SIZE = 20;
 
 export const STAGE_SIZE = {
 	H: 100,
@@ -19,3 +16,5 @@ export const STAGE_LENGTH = {
 	X: 6,
 	Y: 6,
 };
+
+export const FOOD_SIZE = 5;
