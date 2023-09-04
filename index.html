@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="./collision.js"></script>
+    <script src="./food.js"></script>
     <script src="./snake.js"></script>
     <script src="./index.js"></script>
+    <style>
+      .centered {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="stage"> </canvas>
+    <div class="centered">
+      <canvas id="stage"> </canvas>
+
+      <p>press A, S, D or W to start or using arrow keys</p>
+    </div>
   </body>
 </html>
